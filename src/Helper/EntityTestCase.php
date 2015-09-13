@@ -11,7 +11,12 @@ namespace Core2bMock\Helper;
 
 class EntityTestCase extends \PHPUnit_Framework_TestCase {
 
-
+    /**
+     * Return object protected property value
+     * @param $object
+     * @param $propertyName
+     * @return mixed
+     */
     protected function getObjectPropertyValue($object, $propertyName)
     {
         $reflectionObject = new \ReflectionObject($object);
@@ -34,6 +39,20 @@ class EntityTestCase extends \PHPUnit_Framework_TestCase {
         $object->$setterName($value);
         $this->assertSame($value, $this->getObjectPropertyValue($object, $propertyName), 'Wrong value set');
         $this->assertSame($value, $object->$getterName(), 'Wrong value returned');
+    }
+
+    /**
+     * Run available method test
+     * @param $class
+     * @param $requiredMethods
+     */
+    public function runAvailableMethodTest($class, $requiredMethods)
+    {
+        $methodList = get_class_methods($class);
+        $this->assertEquals(sizeof($methodList), sizeof($requiredMethods), 'Methods quantity not equals');
+        foreach ($requiredMethods as $methodName) {
+            $this->assertTrue(in_array($methodName, $methodList), 'Class does not have method '.$methodName);
+        }
     }
 
 
