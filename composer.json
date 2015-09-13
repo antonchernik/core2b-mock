@@ -1,0 +1,32 @@
+{
+  "name": "core2b/core2b-mock",
+  "description": "Mock",
+  "version": "0.0.1",
+  "type": "library",
+  "license": "MIT",
+  "tags": [
+  ],
+  "authors": [
+    {
+      "name": "Anton Chernik",
+      "email": "anton@chernik.info",
+      "role": "lead"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "ext-dom": "*",
+    "ext-json": "*",
+    "ext-pcre": "*",
+    "ext-reflection": "*",
+    "ext-spl": "*",
+    "ext-intl" : "*",
+    "phpunit/PHPUnit": "~4.0"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  }
+}
