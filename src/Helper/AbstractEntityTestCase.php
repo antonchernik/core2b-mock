@@ -9,7 +9,27 @@
 namespace Core2bMock\Helper;
 
 
-class EntityTestCase extends \PHPUnit_Framework_TestCase {
+abstract class AbstractEntityTestCase extends \PHPUnit_Framework_TestCase {
+
+
+    protected abstract function getObject();
+
+
+    protected $class = null;
+
+    /**
+     * Return class
+     * @return null
+     * @throws \Exception
+     */
+    public function getClass()
+    {
+        if (!$this->class) {
+            throw new \Exception('Class not set');
+        }
+        return $this->class;
+    }
+
 
     /**
      * Return object protected property value
@@ -29,11 +49,11 @@ class EntityTestCase extends \PHPUnit_Framework_TestCase {
     /**
      * Run property setter and getter test
      * @param $propertyName
-     * @param $object
      * @param $value
      */
-    public function runPropertyTest($propertyName, $object, $value)
+    public function runPropertyTest($propertyName, $value)
     {
+        $object = $this->getObject();
         $setterName = 'set'.ucfirst($propertyName);
         $getterName = 'get'.ucfirst($propertyName);
         $object->$setterName($value);
@@ -43,12 +63,11 @@ class EntityTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * Run available method test
-     * @param $class
      * @param $requiredMethods
      */
-    public function runAvailableMethodTest($class, $requiredMethods)
+    public function runAvailableMethodTest($requiredMethods)
     {
-        $methodList = get_class_methods($class);
+        $methodList = get_class_methods($this->getClass());
         $this->assertEquals(sizeof($methodList), sizeof($requiredMethods), 'Methods quantity not equals');
         foreach ($requiredMethods as $methodName) {
             $this->assertTrue(in_array($methodName, $methodList), 'Class does not have method '.$methodName);
