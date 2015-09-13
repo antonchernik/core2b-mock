@@ -33,12 +33,12 @@ abstract class AbstractEntityTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * Return object protected property value
+     * @param $object
      * @param $propertyName
      * @return mixed
      */
-    protected function getObjectPropertyValue($propertyName)
+    protected function getObjectPropertyValue($object, $propertyName)
     {
-        $object = $this->getObject();
         $reflectionObject = new \ReflectionObject($object);
         $property = $reflectionObject->getProperty($propertyName);
         $property->setAccessible(true);
