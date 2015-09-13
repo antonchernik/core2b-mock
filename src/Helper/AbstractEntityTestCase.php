@@ -9,7 +9,10 @@
 namespace Core2bMock\Helper;
 
 
-class EntityTestCase extends \PHPUnit_Framework_TestCase {
+abstract class AbstractEntityTestCase extends \PHPUnit_Framework_TestCase {
+
+
+    protected abstract function getObject();
 
 
     protected $class = null;
@@ -30,12 +33,12 @@ class EntityTestCase extends \PHPUnit_Framework_TestCase {
 
     /**
      * Return object protected property value
-     * @param $object
      * @param $propertyName
      * @return mixed
      */
-    protected function getObjectPropertyValue($object, $propertyName)
+    protected function getObjectPropertyValue($propertyName)
     {
+        $object = $this->getObject();
         $reflectionObject = new \ReflectionObject($object);
         $property = $reflectionObject->getProperty($propertyName);
         $property->setAccessible(true);
@@ -46,11 +49,11 @@ class EntityTestCase extends \PHPUnit_Framework_TestCase {
     /**
      * Run property setter and getter test
      * @param $propertyName
-     * @param $object
      * @param $value
      */
-    public function runPropertyTest($propertyName, $object, $value)
+    public function runPropertyTest($propertyName, $value)
     {
+        $object = $this->getObject();
         $setterName = 'set'.ucfirst($propertyName);
         $getterName = 'get'.ucfirst($propertyName);
         $object->$setterName($value);
