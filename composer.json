@@ -20,8 +20,7 @@
     "ext-pcre": "*",
     "ext-reflection": "*",
     "ext-spl": "*",
-    "ext-intl" : "*",
-    s
+    "ext-intl" : "*"
 
   },
   "minimum-stability": "dev",
