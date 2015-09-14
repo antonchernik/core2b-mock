@@ -21,8 +21,7 @@
     "ext-reflection": "*",
     "ext-spl": "*",
     "ext-intl" : "*",
-    "phpunit/php-token-stream": "1.4.5",
-    "phpunit/PHPUnit": "~4.0"
+    s
 
   },
   "minimum-stability": "dev",
