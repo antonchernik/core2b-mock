@@ -46,19 +46,39 @@ abstract class AbstractEntityTestCase extends \PHPUnit_Framework_TestCase {
     }
 
 
+    const PROPERTY_TYPE_MIXED = 'mixed';
+    const PROPERTY_TYPE_ARRAY = 'array';
+    const PROPERTY_TYPE_JSON_OBJECT = 'json_object';
+
+
     /**
      * Run property setter and getter test
      * @param $propertyName
      * @param $value
+     * @param string $type
+     * @throws \Exception
      */
-    public function runPropertyTest($propertyName, $value)
+    public function runPropertyTest($propertyName, $value, $type = 'mixed')
     {
         $object = $this->getObject();
         $setterName = 'set'.ucfirst($propertyName);
         $getterName = 'get'.ucfirst($propertyName);
         $object->$setterName($value);
-        $this->assertSame($value, $this->getObjectPropertyValue($object, $propertyName), 'Wrong value set');
-        $this->assertSame($value, $object->$getterName(), 'Wrong value returned');
+        switch ($type) {
+            case self::PROPERTY_TYPE_JSON_OBJECT:
+                $this->assertSame(json_encode($value), $this->getObjectPropertyValue($object, $propertyName), 'Wrong value set');
+                $this->assertSame($value, $object->$getterName(), 'Wrong value returned');
+                break;
+            case self::PROPERTY_TYPE_ARRAY:
+            case self::PROPERTY_TYPE_MIXED:
+                $this->assertSame($value, $this->getObjectPropertyValue($object, $propertyName), 'Wrong value set');
+                $this->assertSame($value, $object->$getterName(), 'Wrong value returned');
+                break;
+            default:
+                throw new \Exception('Invalid type "'.$type.'". Only '.implode(' ', [self::PROPERTY_TYPE_ARRAY, self::PROPERTY_TYPE_JSON_OBJECT, self::PROPERTY_TYPE_MIXED]).' allowed');
+                break;
+        }
+
     }
 
     /**
