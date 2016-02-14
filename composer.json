@@ -20,7 +20,8 @@
     "ext-pcre": "*",
     "ext-reflection": "*",
     "ext-spl": "*",
-    "ext-intl" : "*"
+    "ext-intl" : "*",
+    "phpunit/PHPUnit": "5.0.*"
 
   },
   "minimum-stability": "dev",
