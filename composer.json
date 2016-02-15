@@ -21,7 +21,7 @@
     "ext-reflection": "*",
     "ext-spl": "*",
     "ext-intl" : "*",
-    "phpunit/PHPUnit": "5.0.*"
+    "phpunit/PHPUnit": "4.*.*"
 
   },
   "minimum-stability": "dev",
